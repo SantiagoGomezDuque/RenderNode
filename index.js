@@ -1,11 +1,19 @@
 const express = require('express');
+const path = require('path');
 const app = express();
-const port = 3000;
 
-app.get('/', (req, res) => {
-  res.send('¡Buenas tardes caballero ilustre!');
+app.use(express.static(path.join(__dirname, 'public')));
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
+
+app.get('/usuarios', (req, res) => {
+    res.render('listar-usuario');
 });
 
-app.listen(port, () => {
-  console.log(`Servidor corriendo en http://localhost:${port}`);
+app.listen(3000, () => {
+    console.log('Servidor corriendo en http://localhost:3000');
+});
+// Ruta para la página principal
+app.get('/', (req, res) => {
+  res.render('index');  // Asegúrate de tener un archivo 'index.ejs' en la carpeta 'views'
 });
