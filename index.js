@@ -13,7 +13,7 @@ app.get('/usuarios', (req, res) => {
 app.listen(3000, () => {
     console.log('Servidor corriendo en http://localhost:3000');
 });
-// Ruta para la página principal
+// Ruta para el index
 app.get('/', (req, res) => {
-  res.render('index');  // Asegúrate de tener un archivo 'index.ejs' en la carpeta 'views'
+  res.render('index');  
 });
