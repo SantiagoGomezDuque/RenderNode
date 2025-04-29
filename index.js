@@ -9,14 +9,14 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
-// Ruta para listar usuarios (vista sin variable user)
+// Ruta para listar usuarios (sin user ni messages)
 app.get('/usuarios', (req, res) => {
     res.render('listar-usuario');
 });
 
-// Ruta principal (index), ahora con variable user definida
+// Ruta principal (index), ahora con user y messages definidos
 app.get('/', (req, res) => {
-    res.render('index', { user: null }); // Aquí definimos user para evitar error
+    res.render('index', { user: null, messages: [] }); // Asegúrate de enviar messages como array
 });
 
 // Servidor
