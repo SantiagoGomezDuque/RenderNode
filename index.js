@@ -14,9 +14,10 @@ app.get('/usuarios', (req, res) => {
     res.render('listar-usuario');
 });
 
-// Ruta principal (index), ahora con user y messages definidos
+// Ruta principal (index), ahora con user, messages y carrito definidos
 app.get('/', (req, res) => {
-    res.render('index', { user: null, messages: [] }); // Asegúrate de enviar messages como array
+    const carrito = {}; // Aquí podrías cargar datos reales en el futuro
+    res.render('index', { user: null, messages: [], carrito });
 });
 
 // Servidor
