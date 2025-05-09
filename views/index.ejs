@@ -42,33 +42,25 @@
                             <div class="frame_2">
                                 <div class="iniciar_crear_cuenta">
                                     <div class="btn_login"> 
-                                        <% if (!user || !user.validar) { %>
-                                            <button class="button_text_wrapper" onclick="window.location.href='/login'">Iniciar Sesión</button>
-                                        <% } %>
+                                        <button class="button_text_wrapper" onclick="window.location.href='/login'">Iniciar Sesión</button>
                                     </div>
                                     
                                     <div class="btn_registro">
-                                        <% if (!user || !user.validar) { %>
-                                            <button class="button_text_wrapper" onclick="window.location.href='/registro'">Crear Cuenta</button>
-                                        <% } %>
+                                        <button class="button_text_wrapper" onclick="window.location.href='/registro'">Crear Cuenta</button>
                                     </div>
                                 </div>
                                 
-                                <% if (user && user.validar && user.rol === 1) { %>
-                                    <div class="btn_admin">
-                                        <button class="button_text_wrapper" onclick="window.location.href='/admin_dashboard'">ir al Dashboard</button>
-                                    </div>
-                                <% } %>
+                                <div class="btn_admin">
+                                    <button class="button_text_wrapper" onclick="window.location.href='/admin_dashboard'">Ir al Dashboard</button>
+                                </div>
                                 
                                 <div class="icons">
-                                    <% if (user && user.validar && user.rol === 3) { %>
-                                        <div class="vender_button_div">
-                                            <button class="vender-button" id="venderTexto" onclick="window.location.href='/publicar'">
-                                                Vender 
-                                                <img src="/img/vender.png" id="heartButton" alt="Usuario">
-                                            </button>
-                                        </div>
-                                    <% } %>
+                                    <div class="vender_button_div">
+                                        <button class="vender-button" id="venderTexto" onclick="window.location.href='/publicar'">
+                                            Vender 
+                                            <img src="/img/vender.png" id="heartButton" alt="Usuario">
+                                        </button>
+                                    </div>
                                     <div class="shopping_cart_simple">
                                         <button class="dropbtn">
                                             <img src="/img/Heart.png" id="heartButton" alt="Inicio">
@@ -85,23 +77,10 @@
                                         </div>
                                     </div>
                                     <div class="shopping_cart_simple3">
-                                        <% if (user && user.validar) { %>
-                                            <button class="user-slider-button" id="user-button">
-                                                <img src="/img/Vector.png" id="heartButton" alt="Usuario">
-                                            </button>
-                                        <% } %>
+                                        <button class="user-slider-button" id="user-button">
+                                            <img src="/img/Vector.png" id="heartButton" alt="Usuario">
+                                        </button>
                                     </div>
-                                    
-                                    <% if (messages && messages.length > 0) { %>
-                                        <div id="message-container">
-                                            <% messages.forEach(message => { %>
-                                                <div class="alert alert-<%= message.type %> alert-dismissible fade show" role="alert">
-                                                    <%= message.text %>
-                                                    <button type="button" class="btn-success" data-bs-dismiss="alert" aria-label="Close"></button>
-                                                </div>
-                                            <% }); %>
-                                        </div>
-                                    <% } %>
                                 </div>
                             </div>
                         </div>
@@ -116,30 +95,10 @@
             </button>
             <h2>Carrito de Compras</h2>
             <ul id="cart-items" class="list-group">
-                <% if (carrito && Object.keys(carrito).length > 0) { %>
-                    <% Object.keys(carrito).forEach(producto_id => { 
-                        const producto = carrito[producto_id]; %>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <span><%= producto.titulo %> - $<%= producto.precio %> x<%= producto.cantidad %></span>
-                            <div>
-                                <button class="btn btn-sm btn-danger" onclick="window.location.href='/eliminar_del_carrito/<%= producto_id %>'">
-                                    <i class="bi bi-trash"></i>
-                                </button>
-                            </div>
-                        </li>
-                    <% }); %>
-                <% } else { %>
-                    <li class="list-group-item text-center">El carrito está vacío</li>
-                <% } %>
+                <li class="list-group-item text-center">El carrito está vacío</li>
             </ul>
             <div class="cart-footer">
-                <p>Total: $<span id="cart-total">
-                    <% if (carrito && Object.keys(carrito).length > 0) { %>
-                        <%= calcularTotal(carrito) %>
-                    <% } else { %>
-                        0.00
-                    <% } %>
-                </span></p>
+                <p>Total: $0.00</p>
                 <button id="clear-cart" class="btn btn-danger" onclick="window.location.href='/vaciar_carrito'">
                     <i class="bi bi-trash"></i> Vaciar Carrito
                 </button>
@@ -155,22 +114,20 @@
             </button>
         
             <div class="user-info">
-                <h2>Bienvenido, <%= user.nombre %></h2>
+                <h2>Bienvenido, Usuario</h2>
             </div>
         
             <ul id="user-items" class="list-group"></ul>
         
             <div class="btn_logout">
-                <% if (user && user.validar) { %>
-                    <button class="botonEditarPerfil" onclick="window.location.href='/editar_perfil'">
-                        <span>Editar perfil</span>
-                        <img src="/img/Vector.png" id="heartButton" alt="Usuario">
-                    </button>
+                <button class="botonEditarPerfil" onclick="window.location.href='/editar_perfil'">
+                    <span>Editar perfil</span>
+                    <img src="/img/Vector.png" id="heartButton" alt="Usuario">
+                </button>
         
-                    <button class="button_text_wrapper" onclick="window.location.href='/logout'">
-                        Cerrar Sesión
-                    </button>
-                <% } %>
+                <button class="button_text_wrapper" onclick="window.location.href='/logout'">
+                    Cerrar Sesión
+                </button>
             </div>
         </aside>
 
@@ -268,54 +225,14 @@
             
             <section class="explorar-productos">
                 <div class="productos">
-                    <div class="heading_3 <% if (productos && productos.length < 3) { %>min-width-class<% } %>">
+                    <div class="heading_3">
                         <div class="overlap_2">
                             <div class="rectangulo_5 text_wrapper-11">Explora nuestros productos</div>
                         </div>
                     </div>
                     
                     <div class="contenedor-productos">
-                        <% if (productos && productos.length > 0) { %>
-                            <% productos.forEach((producto, index) => { %>
-                            <div class="product">
-                                <div class="product_image">
-                                    <% if (producto.imagenes && producto.imagenes.length > 0) { %>
-                                        <% producto.imagenes.forEach((imagen, imgIndex) => { %>
-                                        <img src="<%= imagen.url %>" alt="<%= producto.titulo %>" 
-                                            class="product-img <% if (imgIndex === 0) { %>active<% } %>">
-                                        <% }); %>
-                                    
-                                        <% if (producto.imagenes.length > 1) { %>
-                                        <!-- Controles del carrusel -->
-                                        <button class="carousel-prev" onclick="prevSlide(<%= index + 1 %>)">‹</button>
-                                        <button class="carousel-next" onclick="nextSlide(<%= index + 1 %>)">›</button>
-                                        <% } %>
-                                    <% } %>
-                                </div>
-                            
-                                <div class="content">
-                                    <div class="frame-22">
-                                        <div class="text_wrapper-8"><%= producto.titulo %></div>
-                                    </div>
-                                    <div>
-                                        <p class="text_wrapper-9"><%= producto.descripcion %></p>
-                                    </div>
-                                    <div>
-                                        <p class="text_wrapper-9"><%= producto.categoria %></p>
-                                    </div>
-                                    <div class="precio">
-                                        <div class="text_wrapper-10">$<%= producto.precio %></div>
-                                    </div>
-                                    
-                                    <div>
-                                        <button class="btn-ver-producto" onclick="window.location.href='/producto/<%= producto.id %>'">Ver Producto</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <% }); %>
-                        <% } else { %>
-                            <p>No hay productos disponibles.</p>
-                        <% } %>
+                        <p>No hay productos disponibles.</p>
                     </div>
                 </div>
             </section>
@@ -369,31 +286,14 @@
                         <div class="email">
                             <img class="group-2" />
                         </div>
-                        <input type="email" name="" id="" class="text-field" placeholder="Ingresa tu correo electronico">
                     </div>
-                    <button class="butttons-secondary" onclick="window.location.href='/registro'">Suscríbete ahora</button>
                 </div>
             </div>
         </footer>
     </div>
     
-    <script src="/js/carrito-sidebar.js"></script>
-    <script src="/js/slider.js"></script>
-    <script src="/js/user-sidebar.js"></script>
-    <script src="/js/index.js"></script>
-    
-    <script>
-        // Esperar 3 segundos y ocultar el mensaje
-        setTimeout(() => {
-            const messageContainer = document.getElementById('message-container');
-            if (messageContainer) {
-                messageContainer.style.transition = "opacity 0.5s ease";
-                messageContainer.style.opacity = "0";
-                setTimeout(() => {
-                    messageContainer.remove();
-                }, 500); // Esperar a que termine la transición antes de eliminarlo
-            }
-        }, 3000); // 3000 ms = 3 segundos
-    </script>
+    <script src="/js/script.js"></script>
+    <script src="/js/cart.js"></script>
 </body>
+
 </html>
