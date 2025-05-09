@@ -2,19 +2,17 @@ const express = require('express');
 const path = require('path');
 const app = express();
 
-// Configuración de archivos estáticos
+// Configuración de la carpeta 'public' para archivos estáticos (CSS, JS, imágenes)
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Ruta para la página principal (index)
-app.get('/', (req, res) => {
-    // Sirve el archivo index.html estático desde la carpeta public
-    res.sendFile(path.join(__dirname, 'public', 'index.html'));
-});
+// Configuración del motor de vistas EJS
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));  // Aquí es donde está tu carpeta 'views'
 
-// Ruta para listar usuarios (sin EJS, solo HTML estático)
-app.get('/usuarios', (req, res) => {
-    // Sirve el archivo listar-usuario.html estático desde la carpeta public
-    res.sendFile(path.join(__dirname, 'public', 'listar-usuario.html'));
+// Ruta para la página principal (index.ejs)
+app.get('/', (req, res) => {
+    const carrito = {}; // Aquí podrías cargar datos reales en el futuro
+    res.render('index', { user: null, messages: [], carrito });  // Renderiza el archivo 'index.ejs' desde 'views'
 });
 
 // Servidor
